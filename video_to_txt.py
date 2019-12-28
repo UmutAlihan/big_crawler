@@ -10,6 +10,7 @@ class VideoToText:
     def __init__(self):
        pass
 
+
     def yt_download_video_convert_to_mp3(self,videourl):
         yt = YouTube(videourl)
         video_ext = yt.embed_url.split("/embed/")[1]
