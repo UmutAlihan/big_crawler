@@ -33,8 +33,9 @@ class VideoToText:
         sound = AudioSegment.from_mp3("static/"+video_ext+"/"+video_ext+".mp3")
         sound.export("static/"+video_ext+"/"+video_ext+ ".wav", format="wav")
 
+    def chuck(self,video_ext):
         myaudio = AudioSegment.from_file("static/"+video_ext+"/"+video_ext+ ".wav", "wav")
-        chunk_length_ms = 3000  #
+        chunk_length_ms = 20000  #
         chunks = make_chunks(myaudio, chunk_length_ms)
 
         for i, chunk in enumerate(chunks):
