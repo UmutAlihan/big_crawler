@@ -5,6 +5,7 @@ from pytube import YouTube
 from moviepy.editor import *
 import os
 import glob
+from remove_noise import noise_remover
 
 class VideoToText:
     def __init__(self):
@@ -41,10 +42,13 @@ class VideoToText:
         for i, chunk in enumerate(chunks):
             chunk_name = "{}{}.wav".format(video_ext, i)
             print("exporting", chunk_name)
+
             if not os.path.exists("static/" + video_ext+"_chunk"):
                 os.makedirs("static/" + video_ext+"_chunk")
 
             chunk.export("static/"+ video_ext+"_chunk/"+chunk_name, format="wav")
+            a = "static/"+ video_ext+"_chunk/"+chunk_name
+            noise_remover(a,a).run()
 
 
     def run(self,video_ext):
@@ -62,6 +66,8 @@ class VideoToText:
                 except sr.UnknownValueError:
                     print("Google Speech Recognition could not understand audio")
 
-
-videourl = "https://www.youtube.com/watch?v=vfZQK1G2O90"
-VideoToText().run("vfZQK1G2O90")
+ex ="V6S2wEv5y6c"
+videourl = "https://www.youtube.com/watch?v={}".format(ex)
+VideoToText().yt_download_video_convert_to_mp3(videourl)
+VideoToText().chuck(ex)
+VideoToText().run(ex)
